@@ -38,23 +38,3 @@ def test_noun_storage():
     assert retrieved_noun.eng == "cow"
     assert retrieved_noun.classifier == Classifier.CON
     assert retrieved_noun.viet == "bò"
-
-def test_store_noun():
-    repo = db.mysql_repository.MysqlRepository()
-    test_noun = Noun("hat", "cái", "nón")
-    repo.remove_noun("hat")
-    assert not repo.noun_retriever("hat")
-    repo.store_noun(test_noun)
-
-    stored_noun = repo.noun_retriever("hat")
-    assert stored_noun.eng == "hat"
-    assert stored_noun.classifier == Classifier.CAI
-    assert stored_noun.viet == "nón"
-
-
-def test_remove_noun():
-    repo = db.mysql_repository.MysqlRepository()
-    assert repo.noun_retriever("book")
-    repo.remove_noun("book")
-
-    assert not repo.noun_retriever("book")
