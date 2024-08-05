@@ -6,6 +6,12 @@ from model.generators import *
 
 
 class MysqlRepository(Repository):
+    noun_sql = ("INSERT INTO noun "
+                "(eng, classifier, viet) "
+                "VALUES (%(eng)s, %(classifier)s, %(viet)s)")
+
+    remove_noun_sql = ("DELETE FROM noun "
+                       "WHERE eng = %(eng)s")
     def __init__(self):
         super().__init__()
         config = {'user': 'root',
@@ -23,16 +29,25 @@ class MysqlRepository(Repository):
         except:
             pass
 
-    def noun_mapper(self, entry: dict) -> Noun:
-        viet_classifier_switcher = {'con': Classifier.CON,
-                                    u'quyển': Classifier.QUYEN,
-                                    u'cái': Classifier.CAI}
-        viet_noun = Noun(entry['eng'], viet_classifier_switcher[entry['classifier']], entry['viet'])
-        return viet_noun
-
     def noun_retriever(self, eng_noun):
-        sql = 'SELECT * FROM noun WHERE eng = "' + f"{eng_noun}" + '";'
+        sql = 'SELECT * FROM noun WHERE eng = "' + f"{eng_noun}" + '" LIMIT 1;'
         self.cursor.execute(sql)
-        entry = [{'eng': eng, 'classifier': classifier, 'viet': viet} for (id, eng, classifier, viet) in self.cursor]
-        result = self.noun_mapper(entry[0])
-        return result
+        rows = list(self.cursor.fetchall())
+        if not self.cursor.rowcount:
+            return None
+        nouns = [Noun(eng, classifier, viet) for (id, eng, classifier, viet) in rows]
+        return nouns[0]
+
+    def store_noun(self, noun):
+        data_noun = {
+            'eng': noun.eng,
+            'classifier': noun.classifier.value,
+            'viet': noun.viet,
+        }
+        self.cursor.execute(self.noun_sql, data_noun)
+        self.connection.commit()
+
+    def remove_noun(self, eng_noun: str):
+        data_noun = {'eng': eng_noun}
+        self.cursor.execute(self.remove_noun_sql, data_noun)
+        self.connection.commit()

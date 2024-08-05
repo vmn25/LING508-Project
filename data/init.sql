@@ -2,7 +2,6 @@ CREATE DATABASE viet;
 ALTER DATABASE viet CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 USE viet;
 
-
 CREATE TABLE noun (
     id INT NOT NULL AUTO_INCREMENT,
     eng VARCHAR (30),
