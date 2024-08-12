@@ -16,8 +16,8 @@ class MysqlRepository(Repository):
         super().__init__()
         config = {'user': 'root',
                   'password': 'root',
-                  'host': 'localhost',
-                  'port': '32000',
+                  'host': 'db',  # to run locally, 'localhost'
+                  'port': '3306',  # to run locally, '32000'
                   'database': 'viet'
                   }
         self.connection = mysql.connector.connect(**config)

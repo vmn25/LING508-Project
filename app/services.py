@@ -11,7 +11,7 @@ class Services:
         self.repo = repo
 
     #Use case 2: Takes English noun and returns Viet translation with appropriate classifier if applicable
-    def noun_classifier(self, noun):
+    def noun_classifier(self, noun) -> Noun:
         if self.repo.noun_retriever(noun):
             return self.repo.noun_retriever(noun)
         else:
@@ -23,3 +23,15 @@ class Services:
             result = Noun(noun, translated_split[0], " ".join(translated_split[1:]))
             self.repo.store_noun(result)
             return result
+
+    def add_noun(self, noun):
+        if self.repo.noun_retriever(noun.eng):
+            return False
+        else:
+            self.repo.store_noun(noun)
+            return True
+
+    def parse_noun(self, data):
+        stored_noun = data.get('noun')
+        res = Noun(stored_noun.get('english'), stored_noun.get('classifier'), stored_noun.get('vietnamese'))
+        return res

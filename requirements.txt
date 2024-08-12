@@ -1,2 +1,5 @@
 pytest
 mysql-connector
+translate
+flask
+flask_cors
