@@ -9,11 +9,11 @@ Input = Tôi ăn cá.
 Output = (Tôi, Noun), (ăn, Verb), (cá, Noun).
 
 ## 2. Noun Classifier
-The app takes a noun in English as input and returns the Vietnamese translation as well as appropriate classifier if applicable.
+The app takes a noun in English as input and returns the input, the Vietnamese translation, and the appropriate classifier if applicable.
 
 Example:
 Input = dog
-Output = con chó
+Output = English: dog, classifier: con, Vietnamese: chó
 
 ## 3. Parse a Pronoun
 The app takes a pronoun in Vietnamese as input and returns information on gender, person, number, and context.
