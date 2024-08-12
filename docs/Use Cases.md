@@ -1,19 +1,22 @@
-## Use Cases
+# Use Cases
 For this project, only Use Case #2 has been implemented.
 
-# 1. Part of Speech – the app takes a sentence in Vietnamese as input and returns the part of speech for each word.
+## 1. Part of Speech
+The app takes a sentence in Vietnamese as input and returns the part of speech for each word.
 
 Example:
 Input = Tôi ăn cá.
 Output = (Tôi, Noun), (ăn, Verb), (cá, Noun).
 
-# 2. Noun Classifier – the app takes a noun in English as input and returns the Vietnamese translation as well as appropriate classifier if applicable.
+## 2. Noun Classifier
+The app takes a noun in English as input and returns the Vietnamese translation as well as appropriate classifier if applicable.
 
 Example:
 Input = dog
 Output = con chó
 
-# 3. Parse a Pronoun - the app takes a pronoun in Vietnamese as input and returns information on gender, person, number, and context.
+## 3. Parse a Pronoun
+The app takes a pronoun in Vietnamese as input and returns information on gender, person, number, and context.
 
 Example:
 Input = minh
